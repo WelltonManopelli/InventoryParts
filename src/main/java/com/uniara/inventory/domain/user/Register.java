@@ -1,4 +1,6 @@
 package com.uniara.inventory.domain.user;
 
-public record Register(String login, String password, UserRole role) {
+import com.uniara.inventory.domain.dealer.Dealer;
+
+public record Register(String login, String password, UserRole role, String cod) {
 }

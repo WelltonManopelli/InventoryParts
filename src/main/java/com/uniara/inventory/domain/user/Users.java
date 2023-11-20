@@ -28,13 +28,17 @@ import java.util.List;
         private String password;
         private UserRole role;
         @ManyToOne
-        private Dealer dealer; // Many users belong to one dealer
+        private Dealer dealer;
 
-        public Users(String login, String password, UserRole role){
-            this.login = login;
-            this.password = password;
-            this.role = role;
+
+        public Users (Register register, String encryptedPassword, Dealer dealer){
+            this.login = register.login();
+            this.password = encryptedPassword;
+            this.role = register.role();
+            this.dealer = dealer;
+
         }
+
 
         @Override
         public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -42,11 +46,7 @@ import java.util.List;
             else return List.of(new SimpleGrantedAuthority("ROLE_USER"));
         }
 
-        @Override
-        public String getPassword() {
-            String o = null;
-            return o;
-        }
+
 
         @Override
         public String getUsername() {
@@ -74,40 +74,6 @@ import java.util.List;
         }
 
 
-    public String getId() {
-        return id;
-    }
 
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getLogin() {
-        return login;
-    }
-
-    public void setLogin(String login) {
-        this.login = login;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public UserRole getRole() {
-        return role;
-    }
-
-    public void setRole(UserRole role) {
-        this.role = role;
-    }
-
-    public Dealer getDealer() {
-        return dealer;
-    }
-
-    public void setDealer(Dealer dealer) {
-        this.dealer = dealer;
-    }
 }
 

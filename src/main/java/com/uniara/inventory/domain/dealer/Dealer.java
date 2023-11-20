@@ -4,23 +4,27 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
 @AllArgsConstructor
-@NoArgsConstructor
+@EqualsAndHashCode(of = "cod")
 @Entity
 public class Dealer {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String name;
     private String cod;
+    private String name;
     private String address;
 
+    public Dealer(DealerDTO dealer){
+        this.name = dealer.name();
+        this.cod = dealer.cod();
+        this.address = dealer.address();
+    }
+
+    public Dealer() {
+
+    }
 
 }

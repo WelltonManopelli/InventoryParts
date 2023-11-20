@@ -9,10 +9,10 @@ import java.util.List;
 
 public interface PartsRepository extends JpaRepository<Parts, Long> {
     List<Parts> findAllByPartNumber(String partNumber);
-    Parts findByPartNumber (String partNumber, String Dealer);
+ /*   Parts findByPartNumber (String partNumber, String Dealer);*/
     List<Parts> findAllByDealerCod (String cod);
 
-    Parts deleteByPartNumber (String partNumber, String Dealer);
+ /*   Parts deleteByPartNumber (String partNumber, String Dealer);*/
 
 
 }

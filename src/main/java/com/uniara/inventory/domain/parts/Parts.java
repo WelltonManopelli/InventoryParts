@@ -30,11 +30,11 @@ public class Parts {
     @JoinColumn(name = "dealer_id")
     private Dealer dealer;
 
-    public Parts (PartsResponse partsResponse ){
-        this.id = partsResponse.id();
-        this.partNumber = partsResponse.partNumber();
-        this.quantity = partsResponse.quantity();
-        this.dealer = partsResponse.dealer();
+    public Parts (PartsRequest partsRequest, Dealer dealer ){
+
+        this.partNumber = partsRequest.partNumber();
+        this.quantity = partsRequest.quantity();
+        this.dealer = dealer;
     }
 
 }
