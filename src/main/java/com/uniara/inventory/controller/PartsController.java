@@ -22,7 +22,7 @@ public class PartsController {
         List<Parts> parts = partsService.getAllParts();
 
         if (!parts.equals("[]") ) {
-            return ResponseEntity.ok(parts);
+            return ResponseEntity.ok("sem peças cadastraas");
         } else {
             return ResponseEntity.notFound().build(); // Ou outra resposta apropriada
         }
@@ -51,7 +51,7 @@ public class PartsController {
     }
 
 
-    @PostMapping("/parts")
+  @PostMapping("/parts")
     public ResponseEntity<Parts> createParts(@RequestBody @Valid  PartsRequest partsRequest) {
         Parts part = partsService.createParts(partsRequest);
         return ResponseEntity.status(HttpStatus.CREATED).body(part);

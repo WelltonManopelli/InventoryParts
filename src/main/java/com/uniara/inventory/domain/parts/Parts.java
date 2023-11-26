@@ -23,7 +23,7 @@ public class Parts {
     @Column(name = "partnumber")
     private String partNumber;
     private int quantity;
-    private BigDecimal value;
+    private int value;
 
     @ManyToOne
     @JoinColumn(name = "dealer_cod")

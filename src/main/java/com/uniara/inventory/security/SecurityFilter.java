@@ -2,13 +2,12 @@ package com.uniara.inventory.security;
 
 
 
-import com.uniara.inventory.domain.dealer.Dealer;
-import com.uniara.inventory.repositories.DealerRepository;
 import com.uniara.inventory.repositories.UsersRepository;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -25,6 +24,9 @@ public class SecurityFilter extends OncePerRequestFilter {
     @Autowired
     UsersRepository userRepository;
 
+    @Getter
+    String loadUser;
+
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
@@ -32,6 +34,7 @@ public class SecurityFilter extends OncePerRequestFilter {
         if(token != null){
             var login = tokenService.validateToken(token);
             UserDetails user = userRepository.findByLogin(login);
+            this.loadUser=login;
 
             var authentication = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
             SecurityContextHolder.getContext().setAuthentication(authentication);

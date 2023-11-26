@@ -4,9 +4,14 @@ import com.uniara.inventory.domain.dealer.Dealer;
 import com.uniara.inventory.domain.parts.Parts;
 import com.uniara.inventory.domain.parts.PartsRequest;
 import com.uniara.inventory.domain.user.Users;
+import com.uniara.inventory.repositories.DealerRepository;
 import com.uniara.inventory.repositories.PartsRepository;
+import com.uniara.inventory.repositories.UsersRepository;
+import com.uniara.inventory.security.SecurityConfig;
+import com.uniara.inventory.security.SecurityFilter;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,9 +21,16 @@ import java.util.List;
 @Service
 public class PartsService {
 
-        private Users user ;
+       @Autowired
+        private SecurityFilter securityFilter;
         @Autowired
         private PartsRepository partsRepository;
+
+        @Autowired
+        private UsersRepository usersRepository;
+
+        @Autowired
+        private DealerRepository dealerRepository;
 
         public List<Parts> getAllParts() {
             return partsRepository.findAll();
@@ -31,9 +43,11 @@ public class PartsService {
             return partsRepository.findAllByDealerCod(DealerCod);
         }
 
-        public Parts createParts(PartsRequest partsRequest) {
+         public Parts createParts(PartsRequest partsRequest) {
 
-            Dealer dealer = user.getDealer();
+            String login  = securityFilter.getLoadUser();
+            Dealer dealer = usersRepository.findDealerByLogin(login);
+
             var part = new Parts(partsRequest, dealer);
             return partsRepository.save(part);
         }
