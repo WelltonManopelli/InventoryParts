@@ -22,8 +22,8 @@ public class Parts {
     @Id
     @Column(name = "partnumber")
     private String partNumber;
-    private int quantity;
-    private int value;
+    private Integer quantity;
+    private Integer value;
 
     @ManyToOne
     @JoinColumn(name = "dealer_cod")
