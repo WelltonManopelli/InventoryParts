@@ -33,6 +33,7 @@ public class Parts {
 
         this.partNumber = partsRequest.partNumber();
         this.quantity = partsRequest.quantity();
+        this.value = partsRequest.value();
         this.dealer = dealer;
     }
 
