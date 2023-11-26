@@ -2,6 +2,8 @@ package com.uniara.inventory.security;
 
 
 
+import com.uniara.inventory.domain.dealer.Dealer;
+import com.uniara.inventory.repositories.DealerRepository;
 import com.uniara.inventory.repositories.UsersRepository;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -22,6 +24,7 @@ public class SecurityFilter extends OncePerRequestFilter {
     TokenService tokenService;
     @Autowired
     UsersRepository userRepository;
+
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {

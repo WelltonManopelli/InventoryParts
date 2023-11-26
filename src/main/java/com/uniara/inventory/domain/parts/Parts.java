@@ -20,14 +20,13 @@ import lombok.Setter;
 @Entity
 public class Parts {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(name = "partnumber")
     private String partNumber;
     private int quantity;
     private BigDecimal value;
 
     @ManyToOne
-    @JoinColumn(name = "dealer_id")
+    @JoinColumn(name = "dealer_cod")
     private Dealer dealer;
 
     public Parts (PartsRequest partsRequest, Dealer dealer ){

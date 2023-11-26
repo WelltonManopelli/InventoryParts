@@ -6,9 +6,9 @@ import com.uniara.inventory.domain.parts.Parts;
 
 import java.math.BigDecimal;
 
-public record PartsResponse(Long id, String partNumber, Integer quantity, BigDecimal value, Dealer dealer) {
+public record PartsResponse(String partNumber, Integer quantity, BigDecimal value, Dealer dealer) {
         public PartsResponse(Parts parts){
-            this(parts.getId(), parts.getPartNumber(), parts.getQuantity(), parts.getValue(), parts.getDealer());
+            this(parts.getPartNumber(), parts.getQuantity(), parts.getValue(), parts.getDealer());
         }
 
 }

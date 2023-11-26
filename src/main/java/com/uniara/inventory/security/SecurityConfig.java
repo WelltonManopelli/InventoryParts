@@ -29,9 +29,8 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/login").permitAll()
                         .requestMatchers(HttpMethod.POST, "/register/dealer").permitAll()
                         .requestMatchers(HttpMethod.POST, "/register/user").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/parts").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/parts").permitAll()
-                       /* .anyRequest().authenticated()*/
+                        .requestMatchers(HttpMethod.POST, "/parts").hasRole("ADMIN")
+                       .anyRequest().authenticated()
                 )
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();

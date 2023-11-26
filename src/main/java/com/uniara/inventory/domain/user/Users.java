@@ -28,6 +28,7 @@ import java.util.List;
         private String password;
         private UserRole role;
         @ManyToOne
+        @JoinColumn(name = "dealer_cod")
         private Dealer dealer;
 
 
