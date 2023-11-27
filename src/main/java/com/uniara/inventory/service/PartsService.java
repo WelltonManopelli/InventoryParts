@@ -52,12 +52,20 @@ public class PartsService {
             return partsRepository.save(part);
         }
 
-    /*    public Parts deleteParts(String partNumber, PartsRequest partsRequest){
-
-            return partsRepository.deleteByPartNumber(partNumber, String.valueOf(partsRequest.dealer()));
+         public Parts deleteParts(String partNumber){
+             String login  = securityFilter.getLoadUser();
+             Dealer dealer = usersRepository.findDealerByLogin(login);
+             Parts partToDelete = partsRepository.findByPartNumberAndDealer(partNumber, dealer);
+             if (partToDelete != null) {
+                 // Excluir a parte
+                 partsRepository.deleteByPartNumberAndDealer(partNumber, dealer);
+                 return partToDelete;
+             }
+            else
+                return null;
         }
 
-*//*
+/*
          public Parts updateParts(String partNumber, PartsRequest partsRequest) {
          Parts part = partsRepository.findByPartNumber(partNumber, String.valueOf(partsRequest.dealer()));
 

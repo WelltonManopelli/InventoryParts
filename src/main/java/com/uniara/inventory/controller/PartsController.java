@@ -21,14 +21,14 @@ public class PartsController {
     public ResponseEntity getAllParts() {
         List<Parts> parts = partsService.getAllParts();
 
-        if (!parts.equals("[]") ) {
-            return ResponseEntity.ok("sem peças cadastraas");
+        if (!parts.isEmpty()){
+            return ResponseEntity.ok(parts);
         } else {
             return ResponseEntity.notFound().build(); // Ou outra resposta apropriada
         }
     }
 
-    @GetMapping("/{partNumber}")
+    @GetMapping("parts/partNumber={partNumber}")
     public ResponseEntity<List<Parts>> getAllPartsByPartNumber(@PathVariable String partNumber) {
         List<Parts> parts = partsService.getAllPartsByPartNumber(partNumber);
 
@@ -39,7 +39,7 @@ public class PartsController {
         }
     }
 
-    @GetMapping("/{dealerCod}")
+    @GetMapping("/parts/dealerCod={DealerCod}")
     public ResponseEntity<List<Parts>> getAllPartsByDealerCod(@PathVariable String DealerCod) {
         List<Parts> parts = partsService.getAllPartsByDealerCod(DealerCod);
 
@@ -69,10 +69,10 @@ public class PartsController {
         }
     }*/
 
-/*
-    @DeleteMapping("/{partNumber}")
-    public ResponseEntity<Parts> deleteParts(@PathVariable String partNumber, @RequestBody @Valid PartsRequest partsRequest) {
-        var deleteParts = partsService.deleteParts(partNumber, partsRequest);
+
+    @DeleteMapping("/parts/delete={partNumber}")
+    public ResponseEntity<Parts> deleteParts(@PathVariable String partNumber) {
+        var deleteParts = partsService.deleteParts(partNumber);
 
         if (deleteParts != null) {
             return ResponseEntity.ok(deleteParts);
@@ -80,5 +80,5 @@ public class PartsController {
             throw new EntityNotFoundException(); 
         }
 
-    }*/
+    }
 }
