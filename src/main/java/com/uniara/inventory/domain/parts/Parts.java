@@ -20,6 +20,8 @@ import lombok.Setter;
 @Entity
 public class Parts {
     @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private String id;
     @Column(name = "partnumber")
     private String partNumber;
     private Integer quantity;

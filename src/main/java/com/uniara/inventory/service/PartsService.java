@@ -15,7 +15,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+import java.util.Optional;
 
 
 @Service
@@ -52,18 +52,26 @@ public class PartsService {
             return partsRepository.save(part);
         }
 
-         public Parts deleteParts(String partNumber){
-             String login  = securityFilter.getLoadUser();
-             Dealer dealer = usersRepository.findDealerByLogin(login);
-             Parts partToDelete = partsRepository.findByPartNumberAndDealer(partNumber, dealer);
-             if (partToDelete != null) {
-                 // Excluir a parte
-                 partsRepository.deleteByPartNumberAndDealer(partNumber, dealer);
-                 return partToDelete;
-             }
-            else
-                return null;
-        }
+    //     public Parts deleteParts(String id) {
+           //  String login = securityFilter.getLoadUser();
+           //  Dealer dealer = usersRepository.findDealerByLogin(login);
+           //  String dealerCod = dealer.getCod();
+          //   Optional<Parts> part = partsRepository.findById(id);
+
+
+            //         partsRepository.deleteById(id);
+
+           //      }
+
+
+
+
+
+           //  return null;
+        // }
+
+
+
 
 /*
          public Parts updateParts(String partNumber, PartsRequest partsRequest) {

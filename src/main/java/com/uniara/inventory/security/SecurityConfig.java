@@ -30,6 +30,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/register/dealer").permitAll()
                         .requestMatchers(HttpMethod.POST, "/register/user").permitAll()
                         .requestMatchers(HttpMethod.POST, "/parts").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/parts/delete").permitAll()
                        .anyRequest().authenticated()
                 )
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)

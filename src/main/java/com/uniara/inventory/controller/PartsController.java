@@ -2,6 +2,7 @@ package com.uniara.inventory.controller;
 
 import com.uniara.inventory.domain.parts.Parts;
 import com.uniara.inventory.domain.parts.PartsRequest;
+import com.uniara.inventory.repositories.PartsRepository;
 import com.uniara.inventory.service.PartsService;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
@@ -16,6 +17,10 @@ import java.util.List;
 public class PartsController {
     @Autowired
     private PartsService partsService;
+
+    @Autowired
+    private PartsRepository repository;
+
 
     @GetMapping("/parts")
     public ResponseEntity getAllParts() {
@@ -69,16 +74,14 @@ public class PartsController {
         }
     }*/
 
-
-    @DeleteMapping("/parts/delete={partNumber}")
-    public ResponseEntity<Parts> deleteParts(@PathVariable String partNumber) {
-        var deleteParts = partsService.deleteParts(partNumber);
-
-        if (deleteParts != null) {
-            return ResponseEntity.ok(deleteParts);
-        } else {
-            throw new EntityNotFoundException(); 
-        }
-
+    @DeleteMapping("/parts/delete={id}")
+    public ResponseEntity <?> delete(@PathVariable String id) {
+        return repository.findById(id)
+                .map(record -> {
+                    repository.deleteById(id);
+                    return ResponseEntity.ok().build();
+                }).orElse(ResponseEntity.notFound().build());
     }
+
+
 }
