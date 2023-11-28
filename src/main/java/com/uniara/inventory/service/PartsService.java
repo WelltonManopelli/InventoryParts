@@ -52,35 +52,46 @@ public class PartsService {
             return partsRepository.save(part);
         }
 
-    //     public Parts deleteParts(String id) {
-           //  String login = securityFilter.getLoadUser();
-           //  Dealer dealer = usersRepository.findDealerByLogin(login);
-           //  String dealerCod = dealer.getCod();
-          //   Optional<Parts> part = partsRepository.findById(id);
+     public Boolean deleteParts(String partNumber) {
+    String login  = securityFilter.getLoadUser();
+    Dealer dealer = usersRepository.findDealerByLogin(login);
 
 
-            //         partsRepository.deleteById(id);
+    String part = partsRepository.findByPartNumberAndDealer(partNumber, dealer.getCod());
 
-           //      }
+          if (part!=null) {
 
+              partsRepository.deleteById(part);
+              return true;
 
+          }
 
+          else
 
-
-           //  return null;
-        // }
-
-
-
-
-/*
-         public Parts updateParts(String partNumber, PartsRequest partsRequest) {
-         Parts part = partsRepository.findByPartNumber(partNumber, String.valueOf(partsRequest.dealer()));
+              return false; // Ou lançar uma exceção indicando que a peça não foi encontrada
+      }
 
 
-        if (part!= null) {
-                    BeanUtils.copyProperties(partsRequest, part);
-                    return partsRepository.save(part);
+
+
+
+
+
+
+
+         public Parts updateParts(PartsRequest partsRequest) {
+
+            String login  = securityFilter.getLoadUser();
+            Dealer dealer = usersRepository.findDealerByLogin(login);
+
+
+         String part = partsRepository.findByPartNumberAndDealer(partsRequest.partNumber(), dealer.getCod());
+         Optional<Parts> partUpdate = partsRepository.findById(part);
+
+        if (partUpdate.isPresent()) {
+
+                    BeanUtils.copyProperties(partsRequest, partUpdate.get());
+                    return partsRepository.save(partUpdate.get());
 
                 }
 
@@ -89,7 +100,7 @@ public class PartsService {
             return null; // Ou lançar uma exceção indicando que a peça não foi encontrada
         }
 
-*/
+
 
 }
 

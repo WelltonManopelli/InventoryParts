@@ -19,7 +19,7 @@ public class PartsController {
     private PartsService partsService;
 
     @Autowired
-    private PartsRepository repository;
+    private PartsRepository partsRepository;
 
 
     @GetMapping("/parts")
@@ -63,25 +63,33 @@ public class PartsController {
     }
 
 
-  /*  @PutMapping("/{partNumber}")
-    public ResponseEntity<Parts> updateParts(@PathVariable String partNumber, @RequestBody @Valid PartsRequest partsRequest) {
-        Parts updatedParts = partsService.updateParts(partNumber, partsRequest);
+  @PutMapping("/parts/update")
+    public ResponseEntity<Parts> updateParts(@RequestBody @Valid PartsRequest partsRequest) {
+      Parts updatedParts = partsService.updateParts(partsRequest);
 
-        if (updatedParts != null) {
-            return ResponseEntity.ok(updatedParts);
-        } else {
-            throw new EntityNotFoundException();
-        }
-    }*/
+      if (updatedParts != null) {
+          return ResponseEntity.ok(updatedParts);
+      } else {
+          throw new EntityNotFoundException();
+      }
+  }
 
     @DeleteMapping("/parts/delete={id}")
     public ResponseEntity <?> delete(@PathVariable String id) {
-        return repository.findById(id)
+        return partsRepository.findById(id)
                 .map(record -> {
-                    repository.deleteById(id);
+                    partsRepository.deleteById(id);
                     return ResponseEntity.ok().build();
                 }).orElse(ResponseEntity.notFound().build());
     }
 
-
+ /*   @DeleteMapping("/parts/delete={partNumber}")
+    public ResponseEntity <?> delete(@PathVariable String partNumber) {
+       Boolean delete = partsService.deleteParts(partNumber);
+       if(delete)
+       return ResponseEntity.ok().build();
+       else
+           return ResponseEntity.notFound().build();
+    }
+*/
 }
